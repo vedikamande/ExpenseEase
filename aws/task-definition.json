@@ -1,0 +1,77 @@
+{
+  "family": "expenseease-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "containerDefinitions": [
+    {
+      "name": "backend",
+      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/expenseease-backend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "PORT", "value": "5000" },
+        { "name": "FLASK_DEBUG", "value": "false" },
+        { "name": "SQLITE_DB_PATH", "value": "/app/data/expenseease.db" }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "sqlite_storage",
+          "containerPath": "/app/data",
+          "readOnly": false
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/expenseease",
+          "awslogs-region": "<AWS_REGION>",
+          "awslogs-stream-prefix": "backend"
+        }
+      }
+    },
+    {
+      "name": "frontend",
+      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/expenseease-frontend:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "dependsOn": [
+        {
+          "containerName": "backend",
+          "condition": "START"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/expenseease",
+          "awslogs-region": "<AWS_REGION>",
+          "awslogs-stream-prefix": "frontend"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "sqlite_storage",
+      "efsVolumeConfiguration": {
+        "fileSystemId": "<EFS_FILE_SYSTEM_ID>",
+        "transitEncryption": "ENABLED"
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,59 @@
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: #1e293b;
+  --bg-hover: #334155;
+  --bg-input: #0f172a;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --accent-income: #10b981;
+  --accent-income-bg: rgba(16, 185, 129, 0.12);
+  --accent-expense: #ef4444;
+  --accent-expense-bg: rgba(239, 68, 68, 0.12);
+  
+  --primary-btn: #4f46e5;
+  --primary-btn-hover: #4338ca;
+  --secondary-btn: #334155;
+  --secondary-btn-hover: #475569;
+
+  --border-color: #334155;
+  --border-subtle: #1e293b;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.35), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.35rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+}
